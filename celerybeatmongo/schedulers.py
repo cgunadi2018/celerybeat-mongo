@@ -157,6 +157,7 @@ class MongoScheduler(Scheduler):
     def get_from_database(self):
         self.sync()
         d = {}
+        # CG - filter out disabled tasks, otherwise the tasks won't fire
         for doc in self.Model.objects.filter(enabled=True):
             d[doc.name] = self.Entry(doc)
         return d
